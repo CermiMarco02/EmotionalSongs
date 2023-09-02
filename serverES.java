@@ -1,9 +1,10 @@
-package Database;/*
+/*
 Cermisoni Marco, MATRICOLA 748739, VA
 Oldani Marco, MATRICOLA 748243, VA
 De Vito Francesco, MATRICOLA 749044, VA
 Auteri Samuele, MATRICOLA 749710, VA
 */
+package Database;
 
 import EmotionalSongs.Utente;
 import static EmotionalSongs.Registrazione.login;
@@ -18,16 +19,33 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+/**
+ * Server-side method management class
+ * @author Auteri Samuele
+ * @author Cermisoni Marco
+ * @author Oldani Marco
+ */
 public class serverES extends UnicastRemoteObject implements InterfacciaDatabase {
     public static final long serialVersionUID = 1L;
     Database db;
     Utente user;
 
+    /**
+     * Constructor of the class serverES
+     * @throws RemoteException Exception that occurs in Java applications using the Remote Method Invocation (RMI) technology; this exception is thrown when issues arise during the invocation of remote methods through RMI; some of the situations that can cause a RemoteException include: connection issues, remote exceptions, class not found, timeouts, security issues and serialization issues.
+     * @throws SQLException Exception that occurs in Java when there's an error while working with a database using SQL (Structured Query Language) operations; SQL exceptions are typically thrown when there are issues such as: connection errors, syntax errors, constraint violations, data type mismatches, transaction issues, deadlocks and resource exhaustion.
+     */
     public serverES() throws RemoteException, SQLException {
         super();
         db = new Database();
     }
-    
+
+    /**
+     * Launches the server
+     * @param args Main arguments
+     * @throws RemoteException Exception that occurs in Java applications using the Remote Method Invocation (RMI) technology; this exception is thrown when issues arise during the invocation of remote methods through RMI; some of the situations that can cause a RemoteException include: connection issues, remote exceptions, class not found, timeouts, security issues and serialization issues.
+     * @throws SQLException Exception that occurs in Java when there's an error while working with a database using SQL (Structured Query Language) operations; SQL exceptions are typically thrown when there are issues such as: connection errors, syntax errors, constraint violations, data type mismatches, transaction issues, deadlocks and resource exhaustion.
+     */
     public static void main(String[] args) throws RemoteException, SQLException {
         serverES serverImpl = new serverES();
         Registry registry = LocateRegistry.createRegistry(8999);
@@ -38,16 +56,37 @@ public class serverES extends UnicastRemoteObject implements InterfacciaDatabase
         return db.getInstance();
     }
 
+    /**
+     * Method that implements a user's registration for the application
+     * @param user A parameter of type Utente
+     * @throws RemoteException Exception that occurs in Java applications using the Remote Method Invocation (RMI) technology; this exception is thrown when issues arise during the invocation of remote methods through RMI; some of the situations that can cause a RemoteException include: connection issues, remote exceptions, class not found, timeouts, security issues and serialization issues.
+     * @throws SQLException Exception that occurs in Java when there's an error while working with a database using SQL (Structured Query Language) operations; SQL exceptions are typically thrown when there are issues such as: connection errors, syntax errors, constraint violations, data type mismatches, transaction issues, deadlocks and resource exhaustion.
+     */
     public void Registrazione(Utente user) throws RemoteException, SQLException {
         registrazione(user, db);
     }
 
+    /**
+     * Method that allows the user to login to the application
+     * @param username A parameter of type String that expresses the user's username
+     * @param password A parameter of type String that expresses the user's password
+     * @return The method returns a Boolean indicating whether or not the login is correct
+     * @throws SQLException Exception that occurs in Java when there's an error while working with a database using SQL (Structured Query Language) operations; SQL exceptions are typically thrown when there are issues such as: connection errors, syntax errors, constraint violations, data type mismatches, transaction issues, deadlocks and resource exhaustion.
+     * @throws RemoteException Exception that occurs in Java applications using the Remote Method Invocation (RMI) technology; this exception is thrown when issues arise during the invocation of remote methods through RMI; some of the situations that can cause a RemoteException include: connection issues, remote exceptions, class not found, timeouts, security issues and serialization issues.
+     */
     public Boolean Login (String username, String password) throws SQLException, RemoteException{
         Boolean flag;
         flag = login(username,password,db);
         return flag;
     }
 
+    /**
+     * Method that takes the login query
+     * @param query A parameter of type Query
+     * @return The method returns a type Utente
+     * @throws SQLException Exception that occurs in Java when there's an error while working with a database using SQL (Structured Query Language) operations; SQL exceptions are typically thrown when there are issues such as: connection errors, syntax errors, constraint violations, data type mismatches, transaction issues, deadlocks and resource exhaustion.
+     * @throws RemoteException Exception that occurs in Java applications using the Remote Method Invocation (RMI) technology; this exception is thrown when issues arise during the invocation of remote methods through RMI; some of the situations that can cause a RemoteException include: connection issues, remote exceptions, class not found, timeouts, security issues and serialization issues.
+     */
     public Utente QueryLogin(Query query) throws SQLException, RemoteException{
         Statement stm = db.getInstance().getStatement();
         ResultSet rs = stm.executeQuery(query.getQuery());
@@ -65,6 +104,12 @@ public class serverES extends UnicastRemoteObject implements InterfacciaDatabase
         return user;
     }
 
+    /**
+     * Method for searching for a song by title
+     * @param query A parameter of type Query
+     * @return The method returns a matrix of strings
+     * @throws SQLException Exception that occurs in Java when there's an error while working with a database using SQL (Structured Query Language) operations; SQL exceptions are typically thrown when there are issues such as: connection errors, syntax errors, constraint violations, data type mismatches, transaction issues, deadlocks and resource exhaustion.
+     */
     public String[][] cercaBranoMusicaleTitolo(Query query) throws SQLException{
         Statement stm = db.getStatement();
         ResultSet rs = stm.executeQuery(query.getQuery());
@@ -95,6 +140,13 @@ public class serverES extends UnicastRemoteObject implements InterfacciaDatabase
         return matrice;
     }
 
+    /**
+     * Method for viewing playlists
+     * @param query A parameter of type Query
+     * @return The method returns an ArrayList of strings
+     * @throws SQLException Exception that occurs in Java when there's an error while working with a database using SQL (Structured Query Language) operations; SQL exceptions are typically thrown when there are issues such as: connection errors, syntax errors, constraint violations, data type mismatches, transaction issues, deadlocks and resource exhaustion.
+     * @throws RemoteException Exception that occurs in Java applications using the Remote Method Invocation (RMI) technology; this exception is thrown when issues arise during the invocation of remote methods through RMI; some of the situations that can cause a RemoteException include: connection issues, remote exceptions, class not found, timeouts, security issues and serialization issues.
+     */
     public ArrayList<String> QueryVisualizzaPlaylist(Query query) throws SQLException, RemoteException{
         Statement stm = db.getStatement();
         ResultSet rs = stm.executeQuery(query.getQuery());
@@ -107,6 +159,13 @@ public class serverES extends UnicastRemoteObject implements InterfacciaDatabase
         return arrayList;
     }
 
+    /**
+     * Method for searching for a song by author and year
+     * @param query A parameter of type Query
+     * @return The method returns a matrix of strings
+     * @throws SQLException Exception that occurs in Java when there's an error while working with a database using SQL (Structured Query Language) operations; SQL exceptions are typically thrown when there are issues such as: connection errors, syntax errors, constraint violations, data type mismatches, transaction issues, deadlocks and resource exhaustion.
+     * @throws RemoteException Exception that occurs in Java applications using the Remote Method Invocation (RMI) technology; this exception is thrown when issues arise during the invocation of remote methods through RMI; some of the situations that can cause a RemoteException include: connection issues, remote exceptions, class not found, timeouts, security issues and serialization issues.
+     */
     public String[][] cercaBranoMusicaleAutAnno(Query query) throws SQLException, RemoteException{
         Statement stm = db.getStatement();
         ArrayList<String> arrayList = new ArrayList<>();
@@ -136,6 +195,12 @@ public class serverES extends UnicastRemoteObject implements InterfacciaDatabase
 
     }
 
+    /**
+     * Method for creating playlists
+     * @param playlist A parameter of type Playlist
+     * @throws SQLException Exception that occurs in Java when there's an error while working with a database using SQL (Structured Query Language) operations; SQL exceptions are typically thrown when there are issues such as: connection errors, syntax errors, constraint violations, data type mismatches, transaction issues, deadlocks and resource exhaustion.
+     * @throws RemoteException Exception that occurs in Java applications using the Remote Method Invocation (RMI) technology; this exception is thrown when issues arise during the invocation of remote methods through RMI; some of the situations that can cause a RemoteException include: connection issues, remote exceptions, class not found, timeouts, security issues and serialization issues.
+     */
     public void RegistraPlaylist(EmotionalSongs.Playlist playlist) throws SQLException, RemoteException{
         Statement stm = db.getStatement();
 
@@ -150,6 +215,13 @@ public class serverES extends UnicastRemoteObject implements InterfacciaDatabase
         }
     }
 
+    /**
+     * Method to search for songs within the playlist
+     * @param query A parameter of type Query
+     * @return The method returns an ArrayList of strings
+     * @throws SQLException Exception that occurs in Java when there's an error while working with a database using SQL (Structured Query Language) operations; SQL exceptions are typically thrown when there are issues such as: connection errors, syntax errors, constraint violations, data type mismatches, transaction issues, deadlocks and resource exhaustion.
+     * @throws RemoteException Exception that occurs in Java applications using the Remote Method Invocation (RMI) technology; this exception is thrown when issues arise during the invocation of remote methods through RMI; some of the situations that can cause a RemoteException include: connection issues, remote exceptions, class not found, timeouts, security issues and serialization issues.
+     */
     public ArrayList<String> QueryRicercaCanzoniGiaInPlaylist(Query query) throws SQLException, RemoteException{
         Statement stm = db.getStatement();
         ResultSet rs = stm.executeQuery(query.getQuery());
@@ -162,11 +234,24 @@ public class serverES extends UnicastRemoteObject implements InterfacciaDatabase
         return arrayList;
     }
 
+    /**
+     * Method to give votes to emotions for songs
+     * @param query A parameter of type Query
+     * @throws SQLException Exception that occurs in Java when there's an error while working with a database using SQL (Structured Query Language) operations; SQL exceptions are typically thrown when there are issues such as: connection errors, syntax errors, constraint violations, data type mismatches, transaction issues, deadlocks and resource exhaustion.
+     * @throws RemoteException Exception that occurs in Java applications using the Remote Method Invocation (RMI) technology; this exception is thrown when issues arise during the invocation of remote methods through RMI; some of the situations that can cause a RemoteException include: connection issues, remote exceptions, class not found, timeouts, security issues and serialization issues.
+     */
     public void RegistraVotoEmozione(Query query) throws SQLException, RemoteException{
         Statement stm = db.getStatement();
         stm.executeUpdate(query.getQuery());
     }
 
+    /**
+     * Method for displaying emotional voting for songs
+     * @param query A parameter of type Query
+     * @return The method returns an ArrayList of strings
+     * @throws SQLException Exception that occurs in Java when there's an error while working with a database using SQL (Structured Query Language) operations; SQL exceptions are typically thrown when there are issues such as: connection errors, syntax errors, constraint violations, data type mismatches, transaction issues, deadlocks and resource exhaustion.
+     * @throws RemoteException Exception that occurs in Java applications using the Remote Method Invocation (RMI) technology; this exception is thrown when issues arise during the invocation of remote methods through RMI; some of the situations that can cause a RemoteException include: connection issues, remote exceptions, class not found, timeouts, security issues and serialization issues.
+     */
     public ArrayList<String>  QueryCercaVoti (Query query) throws SQLException, RemoteException{
         Statement stm = db.getStatement();
         ResultSet rs = stm.executeQuery(query.getQuery());
