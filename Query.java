@@ -1,17 +1,17 @@
-package Database;/*
+/*
 Cermisoni Marco, MATRICOLA 748739, VA
 Oldani Marco, MATRICOLA 748243, VA
 De Vito Francesco, MATRICOLA 749044, VA
 Auteri Samuele, MATRICOLA 749710, VA
 */
+package Database;
 
 import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * Classe che definisce la query
- * @author
- * @author
+ * Class that defines queries
+ * @author Auteri Samuele
  */
 public class Query implements Serializable {
     @Serial
@@ -19,16 +19,16 @@ public class Query implements Serializable {
     private String query;
 
     /**
-     * Costruttore della classe Database.Query avente un solo parametro
-     * @param query Stringa contenente la query
+     * Constructor of the class Query
+     * @param query A parameter of type String that expresses the query
      */
     public Query(String query){
         this.query = query;
     }
 
     /**
-     * Metodo che restituisce la query
-     * @return Il metodo ritorna come stringa la query
+     * Method that returns the query
+     * @return The method returns as a String the query
      */
     public String getQuery() {
         return query;
