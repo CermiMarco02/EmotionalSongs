@@ -1,9 +1,10 @@
-package EmotionalSongs;/*
+/*
 Cermisoni Marco, MATRICOLA 748739, VA
 Oldani Marco, MATRICOLA 748243, VA
 De Vito Francesco, MATRICOLA 749044, VA
 Auteri Samuele, MATRICOLA 749710, VA
 */
+package EmotionalSongs;
 
 import Database.Database;
 import Database.Database;
@@ -19,6 +20,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Class for defining application functions
+ * @author Auteri Samuele
+ * @author De Vito Francesco
+ * @author Cermisoni Marco
+ */
 public class Brani {
     static Registry registry;
 
@@ -43,11 +50,11 @@ public class Brani {
     }
 
     /**
-     *
-     * @param brano brano da dare in input al metodo, che restituirà tutte le canzoni con la stringa del brano nel titolo
-     * @param db database
-     * @return ritorna una matrice contenente i titoli e i rispettivi codici univoci
-     * @throws SQLException eccezione sql
+     * Method for searching for a song by title
+     * @param brano A parameter of type String that expresses the song to input to the method, which will return all songs with the song string in the title
+     * @param db A parameter of type Database
+     * @return Returns a matrix of strings containing song titles and their unique codes
+     * @throws SQLException Exception that occurs in Java when there's an error while working with a database using SQL (Structured Query Language) operations; SQL exceptions are typically thrown when there are issues such as: connection errors, syntax errors, constraint violations, data type mismatches, transaction issues, deadlocks and resource exhaustion.
      */
     public static String[][] cercaBranoMusicale(String brano, Database db) throws SQLException, RemoteException{
         //Database.Query che cerca tutti i brani che hanno nel titolo la string brano
@@ -58,12 +65,12 @@ public class Brani {
     }
 
     /**
-     *
-     * @param autore nome dell'autore di cui si vogliono cercare i br
-     * @param anno anno di uscita del brano
-     * @param db database
-     * @return
-     * @throws SQLException
+     * Method for searching for a song by author and year
+     * @param autore A parameter of type String that expresses the name of the author whose songs you want to search for
+     * @param anno A parameter of type int that expresses the year of release of the song
+     * @param db A parameter of type Database
+     * @return Returns a matrix of strings containing song titles and their unique codes
+     * @throws SQLException Exception that occurs in Java when there's an error while working with a database using SQL (Structured Query Language) operations; SQL exceptions are typically thrown when there are issues such as: connection errors, syntax errors, constraint violations, data type mismatches, transaction issues, deadlocks and resource exhaustion.
      */
     public static String[][] cercaBranoMusicale(String autore, int anno, Database db) throws SQLException, RemoteException {
         //Database.Query per cercare i titoli in base ad autore e anno
@@ -73,14 +80,31 @@ public class Brani {
         return matrice;
     }
 
+    /**
+     * Void method that allows the recording of an emotion for a song through a vote
+     * @param query A parameter of type Query
+     * @throws SQLException Exception that occurs in Java when there's an error while working with a database using SQL (Structured Query Language) operations; SQL exceptions are typically thrown when there are issues such as: connection errors, syntax errors, constraint violations, data type mismatches, transaction issues, deadlocks and resource exhaustion.
+     * @throws RemoteException Exception that occurs in Java applications using the Remote Method Invocation (RMI) technology; this exception is thrown when issues arise during the invocation of remote methods through RMI; some of the situations that can cause a RemoteException include: connection issues, remote exceptions, class not found, timeouts, security issues and serialization issues.
+     */
     public static void registraVotoEmozione(Query query) throws SQLException, RemoteException {
         databaseInterface.RegistraVotoEmozione(query);
     }
 
+    /**
+     * Method that allows the creation of a playlist
+     * @param playlist A parameter of type Playlist
+     * @throws SQLException Exception that occurs in Java when there's an error while working with a database using SQL (Structured Query Language) operations; SQL exceptions are typically thrown when there are issues such as: connection errors, syntax errors, constraint violations, data type mismatches, transaction issues, deadlocks and resource exhaustion.
+     * @throws RemoteException Exception that occurs in Java applications using the Remote Method Invocation (RMI) technology; this exception is thrown when issues arise during the invocation of remote methods through RMI; some of the situations that can cause a RemoteException include: connection issues, remote exceptions, class not found, timeouts, security issues and serialization issues.
+     */
     public static void registraPlaylist(Playlist playlist) throws SQLException, RemoteException {
         databaseInterface.RegistraPlaylist(playlist);
     }
 
+    /**
+     * Method to change the format on the date received as input
+     * @param inputDateStr A parameter of type String that expresses the date provided as input
+     * @return The method returns a String containing the received date as input with a new format
+     */
     public static String convertDateFormat(String inputDateStr) {
         String outputDateStr = null;
         try {
