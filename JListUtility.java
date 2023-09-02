@@ -1,9 +1,10 @@
-package EmotionalSongs;/*
+/*
 Cermisoni Marco, MATRICOLA 748739, VA
 Oldani Marco, MATRICOLA 748243, VA
 De Vito Francesco, MATRICOLA 749044, VA
 Auteri Samuele, MATRICOLA 749710, VA
 */
+package EmotionalSongs;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +12,11 @@ import java.awt.event.*;
 import java.io.Serial;
 import java.io.Serializable;
 
+/**
+ * Class used for additional GUI management
+ * @author Auteri Samuele
+ * @author De Vito Francesco
+ */
 public class JListUtility extends JPanel implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -18,6 +24,9 @@ public class JListUtility extends JPanel implements Serializable {
     private  DefaultListModel<String> listModel;
     private String playlistSelezionata = "";
 
+    /**
+     * Constructor of the class JListUtility
+     */
     public JListUtility() {
         //Creazione della lista e del modello di lista
         listModel = new DefaultListModel<>();
@@ -48,12 +57,18 @@ public class JListUtility extends JPanel implements Serializable {
         });
     }
 
-    //Metodo per aggiungere una stringa alla lista
+    /**
+     * Method for adding a String to the list
+     * @param str A parameter of type String that is added to the list
+     */
     public void addStringToList(String str) {
         listModel.addElement(str);
     }
 
-    //Metodo che ritorna il nome della playlist selezionata
+    /**
+     * Method that returns the name of the selected playlist
+     * @return The method returns the name of the selected playlist as a String
+     */
     public String nomePlaylistSelezionata(){
         if(playlistSelezionata.equals("")){
             return "";
