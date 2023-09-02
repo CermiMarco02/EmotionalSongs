@@ -1,9 +1,10 @@
-package EmotionalSongs;/*
+/*
 Cermisoni Marco, MATRICOLA 748739, VA
 Oldani Marco, MATRICOLA 748243, VA
 De Vito Francesco, MATRICOLA 749044, VA
 Auteri Samuele, MATRICOLA 749710, VA
 */
+package EmotionalSongs;
 
 import Database.InterfacciaDatabase;
 import Database.Query;
@@ -31,9 +32,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- * Classe relativa all'interfaccia grafica; implementa l'interfaccia ActionListener, utilizzata per gestire gli eventi correlati alle azioni dell'utente su un componente dell'interfaccia grafica utente
+ * Class related to the graphical interface; implements the ActionListener interface, which is used to handle events related to user actions on a GUI component
  * @author De Vito Francesco
  * @author Auteri Samuele
+ * @author Cermisoni Marco
+ * @author Oldani Marco
  */
 public class clientEs implements ActionListener {
     Registry registry = LocateRegistry.getRegistry("127.0.0.1", 8999);
@@ -74,8 +77,10 @@ public class clientEs implements ActionListener {
     private JListUtility lista;
 
     /**
-     * Costruttore della classe EmotionalSongs.GUI che implementa l'interfaccia grafica
-     * @throws SQLException Rappresenta un'eccezione generata dall'API JDBC; quando si utilizza un database tramite JDBC, possono verificarsi diversi potenziali errori come ad esempio errori di connessione al database, errori nelle istruzioni SQL o problemi con il database stesso. Quando si verifica uno di questi errori, l'API JDBC genera un SQLException per indicare che si è verificato un errore.
+     * Constructor of the class clientES
+     * @throws SQLException Exception that occurs in Java when there's an error while working with a database using SQL (Structured Query Language) operations; SQL exceptions are typically thrown when there are issues such as: connection errors, syntax errors, constraint violations, data type mismatches, transaction issues, deadlocks and resource exhaustion.
+     * @throws RemoteException Exception that occurs in Java applications using the Remote Method Invocation (RMI) technology; this exception is thrown when issues arise during the invocation of remote methods through RMI; some of the situations that can cause a RemoteException include: connection issues, remote exceptions, class not found, timeouts, security issues and serialization issues.
+     * @throws NotBoundException Exception that occurs in the context of the Remote Method Invocation (RMI) technology; it is part of the java.rmi package and is thrown when a client tries to access or invoke a remote object that is not currently bound in the RMI registry.
      */
     public clientEs() throws SQLException, RemoteException, NotBoundException {
         try{
@@ -147,8 +152,8 @@ public class clientEs implements ActionListener {
     }
 
     /**
-     * Metodo per la gestione degli eventi relativi ai bottoni
-     * @param e the event to be processed
+     * Method for handling button events
+     * @param e The event to be processed
      */
     public void actionPerformed(ActionEvent e) {
         //Bottone per l'apertura del pannello di registrazione
