@@ -59,7 +59,7 @@ public class Brani {
 
     /**
      *
-     * @param autore nome dell'autore di cui si vogliono cercare i brani
+     * @param autore nome dell'autore di cui si vogliono cercare i br
      * @param anno anno di uscita del brano
      * @param db database
      * @return
